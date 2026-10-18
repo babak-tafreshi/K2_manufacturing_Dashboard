@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: k2
+      POSTGRES_PASSWORD: k2
+      POSTGRES_DB: k2
+    ports:
+      - "5433:5432"
+    volumes:
+      - k2_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U k2 -d k2"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  k2_pgdata:
